@@ -1,0 +1,135 @@
+echo 'echo "========================================================"' >> analizar_sistema.sh
+echo 'echo "          ANALISIS DEL SISTEMA OPERATIVO"' >> analizar_sistema.sh
+echo 'echo "          TAREA 4 - SISTEMAS OPERATIVOS"' >> analizar_sistema.sh
+echo 'echo "========================================================"' >> analizar_sistema.sh
+echo "" >> analizar_sistema.sh
+
+echo 'echo "1. INFORMACION GENERAL DEL SISTEMA"' >> analizar_sistema.sh
+echo 'echo "--------------------------------------------------------"' >> analizar_sistema.sh
+echo 'echo "Sistema y kernel completo:"' >> analizar_sistema.sh
+echo 'uname -a' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+echo 'echo "Version del kernel:"' >> analizar_sistema.sh
+echo 'uname -r' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+echo 'echo "Arquitectura del procesador:"' >> analizar_sistema.sh
+echo 'uname -p' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+echo 'echo "Version detallada de Darwin:"' >> analizar_sistema.sh
+echo 'uname -v' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+
+echo 'echo "2. IDENTIFICACION DEL DISPOSITIVO"' >> analizar_sistema.sh
+echo 'echo "--------------------------------------------------------"' >> analizar_sistema.sh
+echo 'echo "Modelo identificado por el sistema:"' >> analizar_sistema.sh
+echo 'uname -a | awk "{print \$NF}"' >> analizar_sistema.sh
+echo 'echo "Arquitectura: ARM"' >> analizar_sistema.sh
+echo 'echo "Familia del sistema: Darwin"' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+
+echo 'echo "3. ESTADO Y ACTIVIDAD DEL SISTEMA"' >> analizar_sistema.sh
+echo 'echo "--------------------------------------------------------"' >> analizar_sistema.sh
+echo 'echo "Tiempo de funcionamiento y carga actual:"' >> analizar_sistema.sh
+echo 'uptime' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+echo 'echo "Carga promedio del sistema:"' >> analizar_sistema.sh
+echo 'uptime | awk -F "load averages: " "{print \$2}"' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+
+echo 'echo "4. FECHA Y HORA DE LA MEDICION"' >> analizar_sistema.sh
+echo 'echo "--------------------------------------------------------"' >> analizar_sistema.sh
+echo 'date' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+
+echo 'echo "5. ENTORNO DE EJECUCION"' >> analizar_sistema.sh
+echo 'echo "--------------------------------------------------------"' >> analizar_sistema.sh
+echo 'echo "Usuario:"' >> analizar_sistema.sh
+echo 'echo "$USER"' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+echo 'echo "Shell utilizada:"' >> analizar_sistema.sh
+echo 'echo "$SHELL"' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+echo 'echo "Aplicacion de terminal:"' >> analizar_sistema.sh
+echo 'echo "$APPNAME"' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+echo 'echo "Version de a-Shell:"' >> analizar_sistema.sh
+echo 'echo "$APPVERSION"' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+
+echo 'echo "6. RUTAS DEL ENTORNO DEL SISTEMA"' >> analizar_sistema.sh
+echo 'echo "--------------------------------------------------------"' >> analizar_sistema.sh
+echo 'echo "Directorio HOME:"' >> analizar_sistema.sh
+echo 'echo "$HOME"' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+echo 'echo "Directorio actual:"' >> analizar_sistema.sh
+echo 'pwd' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+
+echo 'echo "7. ARCHIVOS Y RECURSOS ACCESIBLES"' >> analizar_sistema.sh
+echo 'echo "--------------------------------------------------------"' >> analizar_sistema.sh
+echo 'echo "Contenido del directorio actual:"' >> analizar_sistema.sh
+echo 'ls -l' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+
+echo 'echo "8. VARIABLES DEL ENTORNO DE EJECUCION"' >> analizar_sistema.sh
+echo 'echo "--------------------------------------------------------"' >> analizar_sistema.sh
+echo 'echo "Terminal: $TERM"' >> analizar_sistema.sh
+echo 'echo "Zona horaria: $TZ"' >> analizar_sistema.sh
+echo 'echo "Directorio temporal: $TMPDIR"' >> analizar_sistema.sh
+echo 'echo "Aplicacion: $APPNAME"' >> analizar_sistema.sh
+echo 'echo "Version de la aplicacion: $APPVERSION"' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+
+echo 'echo "9. MONITOREO DEL SISTEMA EN FUNCIONAMIENTO"' >> analizar_sistema.sh
+echo 'echo "--------------------------------------------------------"' >> analizar_sistema.sh
+echo 'echo "Se realizaran tres mediciones con intervalos de 3 segundos."' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+
+echo 'echo "========== MUESTRA 1 =========="' >> analizar_sistema.sh
+echo 'echo "Hora:"' >> analizar_sistema.sh
+echo 'date' >> analizar_sistema.sh
+echo 'echo "Estado y carga:"' >> analizar_sistema.sh
+echo 'uptime' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+
+echo 'sleep 3' >> analizar_sistema.sh
+
+echo 'echo "========== MUESTRA 2 =========="' >> analizar_sistema.sh
+echo 'echo "Hora:"' >> analizar_sistema.sh
+echo 'date' >> analizar_sistema.sh
+echo 'echo "Estado y carga:"' >> analizar_sistema.sh
+echo 'uptime' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+
+echo 'sleep 3' >> analizar_sistema.sh
+
+echo 'echo "========== MUESTRA 3 =========="' >> analizar_sistema.sh
+echo 'echo "Hora:"' >> analizar_sistema.sh
+echo 'date' >> analizar_sistema.sh
+echo 'echo "Estado y carga:"' >> analizar_sistema.sh
+echo 'uptime' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+
+echo 'echo "10. RESUMEN DEL SISTEMA"' >> analizar_sistema.sh
+echo 'echo "--------------------------------------------------------"' >> analizar_sistema.sh
+echo 'echo "Sistema: Darwin"' >> analizar_sistema.sh
+echo 'echo "Kernel: $(uname -r)"' >> analizar_sistema.sh
+echo 'echo "Arquitectura: $(uname -p)"' >> analizar_sistema.sh
+echo 'echo "Dispositivo: $(uname -a | awk "{print \$NF}")"' >> analizar_sistema.sh
+echo 'echo "Tiempo de actividad y carga:"' >> analizar_sistema.sh
+echo 'uptime' >> analizar_sistema.sh
+echo 'echo "Fecha final de medicion: $(date)"' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+
+echo 'echo "11. LIMITACIONES DEL ENTORNO DE PRUEBA"' >> analizar_sistema.sh
+echo 'echo "--------------------------------------------------------"' >> analizar_sistema.sh
+echo 'echo "El script se ejecuto mediante a-Shell en iPadOS."' >> analizar_sistema.sh
+echo 'echo "El entorno restringe el acceso directo a determinadas"' >> analizar_sistema.sh
+echo 'echo "herramientas de monitoreo de hardware y procesos."' >> analizar_sistema.sh
+echo 'echo "Por esta razon se muestran las metricas disponibles"' >> analizar_sistema.sh
+echo 'echo "desde el entorno de ejecucion." ' >> analizar_sistema.sh
+echo 'echo ""' >> analizar_sistema.sh
+
+echo 'echo "========================================================"' >> analizar_sistema.sh
+echo 'echo "              FIN DEL ANALISIS"' >> analizar_sistema.sh
+echo 'echo "========================================================"' >> analizar_sistema.sh
