@@ -1,1 +1,471 @@
+cat > informe_datacenter.sh <<'EOF'
+#!/bin/bash
 
+ARCHIVO="informe_datacenter.txt"
+
+{
+echo "============================================================"
+echo "              INFORME DEL DATA CENTER"
+echo "============================================================"
+echo "Fecha: $(date)"
+echo "Servidor: $(hostname)"
+echo "Usuario: $(whoami)"
+echo ""
+
+echo "============================================================"
+echo "1. INFORMACION GENERAL"
+echo "============================================================"
+hostname
+hostnamectl 2>/dev/null
+uptime
+echo ""
+
+echo "============================================================"
+echo "2. SISTEMA OPERATIVO"
+echo "============================================================"
+if [ -f /etc/os-release ]; then
+    cat /etc/os-release
+fi
+echo ""
+echo "Kernel:"
+uname -a
+echo ""
+echo "Version del kernel:"
+uname -r
+echo ""
+echo "Arquitectura:"
+uname -m
+echo ""
+
+echo "============================================================"
+echo "3. CPU - HARDWARE"
+echo "============================================================"
+if command -v lscpu >/dev/null 2>&1; then
+    lscpu
+else
+    cat /proc/cpuinfo
+fi
+echo ""
+
+echo "============================================================"
+echo "4. MEMORIA RAM"
+echo "============================================================"
+free -h
+echo ""
+echo "Memoria detallada:"
+cat /proc/meminfo
+echo ""
+
+echo "============================================================"
+echo "5. ALMACENAMIENTO"
+echo "============================================================"
+echo "Discos y particiones:"
+lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINT,MODEL
+echo ""
+echo "Sistemas de archivos:"
+df -hT
+echo ""
+echo "Uso de /var:"
+du -sh /var/* 2>/dev/null | sort -h | tail -20
+echo ""
+
+echo "============================================================"
+echo "6. INFORMACION DEL HARDWARE"
+echo "============================================================"
+if command -v lshw >/dev/null 2>&1; then
+    lshw -short
+else
+    echo "lshw no esta instalado."
+fi
+echo ""
+
+echo "============================================================"
+echo "7. FABRICANTE Y MODELO DEL SERVIDOR"
+echo "============================================================"
+if command -v dmidecode >/dev/null 2>&1; then
+    sudo dmidecode -t system 2>/dev/null
+else
+    echo "dmidecode no esta instalado."
+fi
+echo ""
+
+echo "============================================================"
+echo "8. BIOS"
+echo "============================================================"
+if command -v dmidecode >/dev/null 2>&1; then
+    sudo dmidecode -t bios 2>/dev/null
+else
+    echo "dmidecode no esta instalado."
+fi
+echo ""
+
+echo "============================================================"
+echo "9. DISPOSITIVOS PCI"
+echo "============================================================"
+if command -v lspci >/dev/null 2>&1; then
+    lspci
+else
+    echo "lspci no esta instalado."
+fi
+echo ""
+
+echo "============================================================"
+echo "10. DISPOSITIVOS USB"
+echo "============================================================"
+if command -v lsusb >/dev/null 2>&1; then
+    lsusb
+else
+    echo "lsusb no esta instalado."
+fi
+echo ""
+
+echo "============================================================"
+echo "11. RED - INTERFACES"
+echo "============================================================"
+ip addr 2>/dev/null
+echo ""
+
+echo "============================================================"
+echo "12. DIRECCIONES MAC"
+echo "============================================================"
+ip link 2>/dev/null
+echo ""
+
+echo "============================================================"
+echo "13. RUTAS DE RED"
+echo "============================================================"
+ip route 2>/dev/null
+echo ""
+
+echo "============================================================"
+echo "14. DNS"
+echo "============================================================"
+cat /etc/resolv.conf 2>/dev/null
+echo ""
+
+echo "============================================================"
+echo "15. ARCHIVO HOSTS"
+echo "============================================================"
+cat /etc/hosts 2>/dev/null
+echo ""
+
+echo "============================================================"
+echo "16. PUERTOS Y SERVICIOS DE RED"
+echo "============================================================"
+if command -v ss >/dev/null 2>&1; then
+    ss -tuln
+elif command -v netstat >/dev/null 2>&1; then
+    netstat -tuln
+else
+    echo "No se encontro ss ni netstat."
+fi
+echo ""
+
+echo "============================================================"
+echo "17. CONEXIONES DE RED"
+echo "============================================================"
+if command -v ss >/dev/null 2>&1; then
+    ss -tun
+fi
+echo ""
+
+echo "============================================================"
+echo "18. PRUEBA DE CONECTIVIDAD"
+echo "============================================================"
+ping -c 4 8.8.8.8 2>/dev/null
+echo ""
+
+echo "============================================================"
+echo "19. PROCESOS EN EJECUCION"
+echo "============================================================"
+ps aux
+echo ""
+
+echo "============================================================"
+echo "20. PROCESOS CON MAYOR CONSUMO DE CPU"
+echo "============================================================"
+ps aux --sort=-%cpu | head -11
+echo ""
+
+echo "============================================================"
+echo "21. PROCESOS CON MAYOR CONSUMO DE MEMORIA"
+echo "============================================================"
+ps aux --sort=-%mem | head -11
+echo ""
+
+echo "============================================================"
+echo "22. SERVICIOS ACTIVOS"
+echo "============================================================"
+if command -v systemctl >/dev/null 2>&1; then
+    systemctl list-units --type=service --state=running
+else
+    echo "systemctl no esta disponible."
+fi
+echo ""
+
+echo "============================================================"
+echo "23. SERVICIOS INSTALADOS"
+echo "============================================================"
+if command -v systemctl >/dev/null 2>&1; then
+    systemctl list-unit-files --type=service
+fi
+echo ""
+
+echo "============================================================"
+echo "24. SOFTWARE INSTALADO"
+echo "============================================================"
+if command -v dpkg >/dev/null 2>&1; then
+    echo "Sistema Debian/Ubuntu"
+    dpkg -l
+elif command -v rpm >/dev/null 2>&1; then
+    echo "Sistema RedHat/CentOS/Fedora"
+    rpm -qa
+else
+    echo "No se encontro dpkg ni rpm."
+fi
+echo ""
+
+echo "============================================================"
+echo "25. VERSIONES DE SOFTWARE"
+echo "============================================================"
+
+echo "--- Python ---"
+python3 --version 2>/dev/null
+
+echo "--- Java ---"
+java -version 2>&1 | head -1
+
+echo "--- PHP ---"
+php -v 2>/dev/null | head -1
+
+echo "--- Node.js ---"
+node --version 2>/dev/null
+
+echo "--- Git ---"
+git --version 2>/dev/null
+
+echo "--- Docker ---"
+docker --version 2>/dev/null
+
+echo "--- Nginx ---"
+nginx -v 2>&1
+
+echo "--- Apache ---"
+apache2 -v 2>/dev/null | head -1
+
+echo "--- MySQL ---"
+mysql --version 2>/dev/null
+
+echo "--- MariaDB ---"
+mariadb --version 2>/dev/null
+
+echo ""
+
+echo "============================================================"
+echo "26. USUARIOS DEL SISTEMA"
+echo "============================================================"
+cat /etc/passwd 2>/dev/null
+echo ""
+
+echo "============================================================"
+echo "27. USUARIOS CONECTADOS"
+echo "============================================================"
+who
+echo ""
+w
+echo ""
+
+echo "============================================================"
+echo "28. ULTIMOS INICIOS DE SESION"
+echo "============================================================"
+last -n 15 2>/dev/null
+echo ""
+
+echo "============================================================"
+echo "29. GRUPOS DEL SISTEMA"
+echo "============================================================"
+cat /etc/group 2>/dev/null
+echo ""
+
+echo "============================================================"
+echo "30. TAREAS PROGRAMADAS"
+echo "============================================================"
+crontab -l 2>/dev/null
+echo ""
+
+echo "============================================================"
+echo "31. VARIABLES DEL SISTEMA"
+echo "============================================================"
+env
+echo ""
+
+echo "============================================================"
+echo "32. CARGA DEL SISTEMA"
+echo "============================================================"
+uptime
+echo ""
+cat /proc/loadavg
+echo ""
+
+echo "============================================================"
+echo "33. MEMORIA SWAP"
+echo "============================================================"
+swapon --show 2>/dev/null
+echo ""
+free -h
+echo ""
+
+echo "============================================================"
+echo "34. SISTEMAS DE ARCHIVOS MONTADOS"
+echo "============================================================"
+mount
+echo ""
+
+echo "============================================================"
+echo "35. TEMPERATURA Y SENSORES"
+echo "============================================================"
+if command -v sensors >/dev/null 2>&1; then
+    sensors
+else
+    echo "lm-sensors no esta instalado."
+fi
+echo ""
+
+echo "============================================================"
+echo "36. TEMPERATURA DEL SISTEMA"
+echo "============================================================"
+for archivo in /sys/class/thermal/thermal_zone*/temp
+do
+    if [ -f "$archivo" ]; then
+        echo "$archivo: $(cat "$archivo")"
+    fi
+done
+echo ""
+
+echo "============================================================"
+echo "37. INFORMACION DEL KERNEL"
+echo "============================================================"
+cat /proc/version
+echo ""
+
+echo "============================================================"
+echo "38. INFORMACION DE TIEMPO DE ACTIVIDAD"
+echo "============================================================"
+cat /proc/uptime
+echo ""
+
+echo "============================================================"
+echo "39. INFORMACION DE INTERRUPCIONES"
+echo "============================================================"
+cat /proc/interrupts 2>/dev/null | head -50
+echo ""
+
+echo "============================================================"
+echo "40. INFORMACION DE MEMORIA DEL SISTEMA"
+echo "============================================================"
+cat /proc/meminfo | head -30
+echo ""
+
+echo "============================================================"
+echo "41. INFORMACION DE DISPOSITIVOS"
+echo "============================================================"
+cat /proc/devices 2>/dev/null
+echo ""
+
+echo "============================================================"
+echo "42. LOGS - ERRORES RECIENTES"
+echo "============================================================"
+if command -v journalctl >/dev/null 2>&1; then
+    journalctl -p err -n 50 --no-pager
+else
+    echo "journalctl no esta disponible."
+fi
+echo ""
+
+echo "============================================================"
+echo "43. LOGS DEL SISTEMA"
+echo "============================================================"
+if command -v journalctl >/dev/null 2>&1; then
+    journalctl -n 50 --no-pager
+else
+    echo "journalctl no esta disponible."
+fi
+echo ""
+
+echo "============================================================"
+echo "44. MENSAJES DEL KERNEL"
+echo "============================================================"
+dmesg 2>/dev/null | tail -50
+echo ""
+
+echo "============================================================"
+echo "45. INFORMACION DE SSH"
+echo "============================================================"
+if [ -f /etc/ssh/sshd_config ]; then
+    grep -E "^(Port|PermitRootLogin|PasswordAuthentication|PubkeyAuthentication)" /etc/ssh/sshd_config 2>/dev/null
+else
+    echo "Configuracion SSH no encontrada."
+fi
+echo ""
+
+echo "============================================================"
+echo "46. VARIABLES DE ENTORNO IMPORTANTES"
+echo "============================================================"
+echo "PATH=$PATH"
+echo "HOME=$HOME"
+echo "SHELL=$SHELL"
+echo "USER=$USER"
+echo ""
+
+echo "============================================================"
+echo "47. VERSIONES DE COMPILADORES"
+echo "============================================================"
+gcc --version 2>/dev/null | head -1
+g++ --version 2>/dev/null | head -1
+python3 --version 2>/dev/null
+echo ""
+
+echo "============================================================"
+echo "48. CONTENEDORES DOCKER"
+echo "============================================================"
+if command -v docker >/dev/null 2>&1; then
+    docker ps 2>/dev/null
+else
+    echo "Docker no esta instalado."
+fi
+echo ""
+
+echo "============================================================"
+echo "49. INFORMACION DE VIRTUALIZACION"
+echo "============================================================"
+if command -v systemd-detect-virt >/dev/null 2>&1; then
+    systemd-detect-virt
+else
+    echo "systemd-detect-virt no esta disponible."
+fi
+echo ""
+
+echo "============================================================"
+echo "50. FIN DEL INFORME"
+echo "============================================================"
+echo "Fecha de finalizacion: $(date)"
+echo "Archivo generado: $ARCHIVO"
+echo "============================================================"
+
+} > "$ARCHIVO"
+
+echo ""
+echo "============================================================"
+echo "       INFORME GENERADO CORRECTAMENTE"
+echo "============================================================"
+echo ""
+echo "Archivo: $ARCHIVO"
+echo "Ubicacion: $(pwd)/$ARCHIVO"
+echo ""
+echo "Para verlo:"
+echo "cat $ARCHIVO"
+echo ""
+echo "Para ver las secciones:"
+echo "grep '^=' $ARCHIVO"
+echo "============================================================"
+EOF
