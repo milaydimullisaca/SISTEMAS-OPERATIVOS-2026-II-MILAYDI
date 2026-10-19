@@ -1,0 +1,656 @@
+/* =========================================================
+   MÓDULO 01 · PLANIFICACIÓN DE PROCESOS · tema oscuro
+   Todo está anidado en #planningApp para no afectar a otros módulos.
+   ========================================================= */
+
+#planningApp.simulation-panel {
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+}
+
+#planningApp {
+    display: grid;
+    gap: 22px;
+    color: var(--text);
+
+    /* ---------- tarjetas ---------- */
+
+    .planning-card {
+        --c: var(--violet);
+        min-width: 0;
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-top: 4px solid var(--c);
+        border-radius: 16px;
+        background: linear-gradient(180deg, color-mix(in srgb, var(--c) 8%, var(--surface)), var(--surface) 55%);
+
+        &:nth-child(1) { --c: var(--violet); }
+        &:nth-child(2) { --c: var(--blue); }
+        &:nth-child(3) { --c: var(--pink); }
+        &:nth-child(4) { --c: var(--green); }
+        &:nth-child(5) { --c: var(--orange); }
+
+        & h2 {
+            margin: 0 0 5px;
+            font-size: 19px;
+        }
+
+        & > p,
+        .card-head p {
+            margin-top: 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+    }
+
+    .card-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+
+        & > div:first-child p {
+            margin-bottom: 0;
+        }
+    }
+
+    /* ---------- formularios ---------- */
+
+    .planning-toolbar {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .process-form {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 1fr auto;
+        align-items: end;
+        gap: 12px;
+        margin: 20px 0;
+    }
+
+    .planning-toolbar > div,
+    .process-form > div {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .planning-toolbar label,
+    .process-form label {
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .planning-toolbar select,
+    .planning-toolbar input,
+    .process-form input,
+    .import-gen input {
+        width: 100%;
+        min-width: 0;
+        padding: 11px 12px;
+        border: 1px solid var(--line-strong);
+        border-radius: 9px;
+        background: var(--surface-2);
+        color: var(--text);
+
+        &:hover:not(:disabled) {
+            border-color: var(--violet);
+        }
+
+        &:disabled {
+            opacity: 0.45;
+        }
+    }
+
+    /* ---------- botones ---------- */
+
+    .planning-button {
+        padding: 10px 14px;
+        border: 1px solid var(--line-strong);
+        border-radius: 9px;
+        background: var(--surface-2);
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 700;
+        transition: background 0.15s, border-color 0.15s, filter 0.15s;
+
+        &:hover:not(:disabled) {
+            border-color: var(--violet);
+            background: var(--surface-3);
+        }
+
+        &:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        &.primary {
+            border-color: transparent;
+            background: var(--gradient);
+            color: #fff;
+
+            &:hover:not(:disabled) {
+                filter: brightness(1.08);
+            }
+        }
+    }
+
+    /* ---------- carga de archivos ---------- */
+
+    .import-box {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        margin-top: 16px;
+        padding: 14px;
+        border: 1px dashed var(--line-strong);
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.18);
+        transition: border-color 0.15s, background 0.15s;
+
+        &.dragover {
+            border-color: var(--pink);
+            background: color-mix(in srgb, var(--pink) 12%, var(--surface));
+        }
+    }
+
+    .import-gen {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        & input {
+            width: 90px;
+            padding: 9px 10px;
+        }
+    }
+
+    .import-hint {
+        flex-basis: 100%;
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.7;
+
+        & code {
+            padding: 1px 6px;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.35);
+            color: var(--gold);
+            font-size: 12px;
+        }
+    }
+
+    /* ---------- tabla de procesos ---------- */
+
+    .table-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 6px;
+    }
+
+    .table-wrapper {
+        width: 100%;
+        margin-top: 12px;
+        overflow-x: auto;
+    }
+
+    .process-scroll {
+        max-height: 380px;
+        overflow: auto;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        scrollbar-color: var(--line-strong) transparent;
+    }
+
+    .planning-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        white-space: nowrap;
+
+        & th,
+        & td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+        }
+
+        & th {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background: var(--surface-2);
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        & td button {
+            padding: 5px 9px;
+            border: 1px solid color-mix(in srgb, var(--rose) 45%, transparent);
+            border-radius: 7px;
+            background: transparent;
+            color: var(--rose);
+
+            &:hover {
+                background: color-mix(in srgb, var(--rose) 16%, var(--surface));
+            }
+        }
+
+        & td.pending-cell {
+            color: #7a7399;
+        }
+
+        & td.empty-cell {
+            padding: 25px;
+            color: var(--muted);
+            text-align: center;
+            white-space: normal;
+        }
+
+        & tbody tr:hover td {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        & tr.running td {
+            background: color-mix(in srgb, var(--violet) 20%, var(--surface));
+            font-weight: 700;
+        }
+
+        & tr.finished td:nth-child(5),
+        & tr.finished td:nth-child(6) {
+            color: var(--mint);
+            font-weight: 700;
+        }
+    }
+
+    .planning-message {
+        margin-bottom: 0;
+        color: var(--muted);
+
+        &.error {
+            color: var(--rose);
+        }
+
+        &.success {
+            color: var(--mint);
+        }
+    }
+
+    /* ---------- controles de simulación ---------- */
+
+    .sim-controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        margin-top: 14px;
+    }
+
+    .sim-speed {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+        font-size: 13px;
+        font-weight: 700;
+
+        & input {
+            width: 130px;
+        }
+
+        & span {
+            min-width: 46px;
+            color: var(--pink);
+            font-weight: 600;
+        }
+    }
+
+    & input[type="range"] {
+        accent-color: var(--pink);
+    }
+
+    .sim-scrub {
+        width: 100%;
+        margin: 16px 0 6px;
+    }
+
+    .sim-status {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 10px;
+
+        & > div {
+            --c: var(--violet);
+            padding: 10px 14px;
+            border-left: 3px solid var(--c);
+            background: color-mix(in srgb, var(--c) 8%, transparent);
+            border-radius: 0 10px 10px 0;
+
+            &:nth-child(2) { --c: var(--blue); }
+            &:nth-child(3) { --c: var(--pink); }
+            &:nth-child(4) { --c: var(--green); }
+        }
+
+        & span {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        & strong {
+            display: block;
+            margin-top: 3px;
+            font-size: 17px;
+            font-variant-numeric: tabular-nums;
+        }
+    }
+
+    .planning-metrics {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 18px;
+    }
+
+    .planning-metric {
+        padding: 15px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface-2);
+
+        & span {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        & strong {
+            display: block;
+            margin-top: 6px;
+            color: var(--violet);
+            font-size: 22px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        &:nth-child(2) strong { color: var(--blue); }
+        &:nth-child(3) strong { color: var(--pink); }
+        &:nth-child(4) strong { color: var(--green); }
+    }
+
+    .zoom-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 12px;
+
+        &[hidden] {
+            display: none;
+        }
+
+        & .planning-button {
+            padding: 6px 11px;
+        }
+    }
+
+    .empty-state {
+        padding: 25px;
+        border: 1px dashed var(--line-strong);
+        border-radius: 10px;
+        color: var(--muted);
+        text-align: center;
+    }
+
+    /* =====================================================
+       DIAGRAMA DE GANTT (una fila por proceso)
+       ===================================================== */
+
+    .gantt-scroll {
+        position: relative;
+        max-height: 560px;
+        overflow: auto;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: #17142a;
+        scrollbar-color: var(--line-strong) transparent;
+    }
+
+    .gantt-inner {
+        position: relative;
+        min-width: 100%;
+        padding-top: 10px;
+    }
+
+    .g-grid {
+        position: absolute;
+        top: 0;
+        bottom: 34px;
+        z-index: 0;
+        pointer-events: none;
+        background-image: repeating-linear-gradient(
+            to right,
+            #3d3760 0,
+            #3d3760 1px,
+            transparent 1px,
+            transparent var(--gs, 40px)
+        );
+        -webkit-mask-image: repeating-linear-gradient(to bottom, #000 0, #000 5px, transparent 5px, transparent 9px);
+        mask-image: repeating-linear-gradient(to bottom, #000 0, #000 5px, transparent 5px, transparent 9px);
+    }
+
+    .g-row {
+        position: relative;
+        display: flex;
+        height: 32px;
+
+        &.active {
+            background: color-mix(in srgb, var(--violet) 14%, transparent);
+        }
+
+        &.active .g-label {
+            background: #28224a;
+            color: var(--violet);
+        }
+    }
+
+    .g-label {
+        position: sticky;
+        left: 0;
+        z-index: 4;
+        box-sizing: border-box;
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 76px;
+        padding-right: 12px;
+        overflow: hidden;
+        background: #17142a;
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 800;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .g-track {
+        position: relative;
+        flex: none;
+        height: 100%;
+    }
+
+    .g-seg {
+        position: absolute;
+        top: 5px;
+        box-sizing: border-box;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        height: 22px;
+        overflow: hidden;
+        border: 1px solid;
+        border-radius: 6px;
+        color: #1a1724;
+        font-size: 12px;
+        font-weight: 800;
+        white-space: nowrap;
+
+        &.active {
+            box-shadow: 0 0 0 2px var(--pink);
+        }
+    }
+
+    .g-axis {
+        position: sticky;
+        bottom: 0;
+        z-index: 5;
+        display: flex;
+        height: 34px;
+        background: #17142a;
+    }
+
+    .g-axis-track {
+        position: relative;
+        flex: none;
+        border-top: 2px solid #6b648f;
+    }
+
+    .g-tick {
+        position: absolute;
+        top: 7px;
+        transform: translateX(-50%);
+        color: #cfc9e4;
+        font-size: 12px;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .g-cursor {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: 3;
+        width: 2px;
+        margin-left: -1px;
+        background: var(--pink);
+        box-shadow: 0 0 8px var(--pink);
+        pointer-events: none;
+    }
+
+    /* =====================================================
+       COLA DE LISTOS
+       ===================================================== */
+
+    .queue-board {
+        overflow-x: auto;
+        padding: 16px 18px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: #17142a;
+        scrollbar-color: var(--line-strong) transparent;
+
+        & > .empty-state {
+            border: 0;
+        }
+    }
+
+    .queue-table {
+        min-width: max-content;
+        border-collapse: collapse;
+        font-size: 13px;
+
+        & td {
+            min-width: 54px;
+            height: 26px;
+            padding: 0 6px;
+            color: #d6d1ea;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+
+        & td.q-label {
+            min-width: 96px;
+            padding-right: 18px;
+            color: var(--text);
+            text-align: left;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        & td.q-cur {
+            background: color-mix(in srgb, var(--pink) 12%, transparent);
+        }
+
+        & tr.q-time td {
+            padding-top: 6px;
+            border-top: 2px solid #6b648f;
+            color: var(--text);
+            font-weight: 800;
+        }
+
+        & tr.q-time td.q-label {
+            font-style: italic;
+            font-weight: 500;
+            color: var(--muted);
+        }
+
+        & tr.q-time td.q-future {
+            color: #6f6890;
+            font-weight: 500;
+        }
+    }
+
+    .q-chip {
+        display: inline-block;
+        min-width: 34px;
+        padding: 1px 8px;
+        border: 1px solid;
+        border-radius: 6px;
+        color: #1a1724;
+        font-weight: 800;
+    }
+
+    .q-more {
+        color: var(--muted);
+    }
+
+    /* ---------- responsive ---------- */
+
+    @media (max-width: 760px) {
+        .planning-toolbar,
+        .process-form {
+            grid-template-columns: 1fr;
+        }
+
+        .planning-metrics,
+        .sim-status {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .sim-speed {
+            margin-left: 0;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .planning-metrics,
+        .sim-status {
+            grid-template-columns: 1fr;
+        }
+
+        .planning-card {
+            padding: 14px;
+        }
+    }
+}

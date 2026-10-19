@@ -1,0 +1,840 @@
+
+/* =========================================================
+   CORRECCIÓN DEFINITIVA DEL TEMA OSCURO DE FILÓSOFOS
+   Añadir al final de css/filosofos.css
+   ========================================================= */
+
+#philosophersApp {
+    color: #e9e5f5 !important;
+}
+
+#philosophersApp .module-header,
+#philosophersApp .concurrency-header {
+    color: #e9e5f5 !important;
+}
+
+#philosophersApp .module-header h2,
+#philosophersApp .concurrency-header h2,
+#philosophersApp .module-header p,
+#philosophersApp .concurrency-description {
+    color: #e9e5f5 !important;
+}
+
+#philosophersApp .ph-controls,
+#philosophersApp .ph-panel {
+    background: #211d33 !important;
+    color: #e9e5f5 !important;
+    border: 1px solid #403858 !important;
+    box-shadow: none !important;
+}
+
+#philosophersApp .ph-controls label,
+#philosophersApp .ph-controls p,
+#philosophersApp .ph-panel p,
+#philosophersApp .ph-statistics span {
+    color: #c5bddb !important;
+}
+
+#philosophersApp .ph-controls select,
+#philosophersApp select {
+    background: #302945 !important;
+    color: #f5f1ff !important;
+    border: 1px solid #51456f !important;
+}
+
+#philosophersApp .ph-buttons button,
+#philosophersApp button:not(:disabled) {
+    color: #ffffff !important;
+}
+
+#philosophersApp .ph-statistics > div {
+    background: #211d33 !important;
+    color: #f5f1ff !important;
+    border: 1px solid #403858 !important;
+    border-top: 4px solid #a78bfa !important;
+    box-shadow: none !important;
+}
+
+#philosophersApp .ph-statistics strong {
+    color: #c4b5fd !important;
+}
+
+#philosophersApp .ph-panel h3 {
+    color: #f5f1ff !important;
+}
+
+#philosophersApp .ph-table {
+    background: radial-gradient(ellipse at center, #302849 0%, #211b32 65%, #171324 100%) !important;
+    border: 1px solid #49405f !important;
+    color: #f5f1ff !important;
+}
+
+#philosophersApp .ph-seat {
+    background: #302945 !important;
+    border: 1px solid #51456f !important;
+    color: #f5f1ff !important;
+}
+
+#philosophersApp .ph-seat-name {
+    color: #f5f1ff !important;
+}
+
+#philosophersApp .ph-state-label {
+    color: #c5bddb !important;
+}
+
+#philosophersApp .ph-seat.thinking {
+    border-color: #60a5fa !important;
+}
+
+#philosophersApp .ph-seat.eating {
+    background: #153a30 !important;
+    border-color: #34d399 !important;
+}
+
+#philosophersApp .ph-seat.eating .ph-state-label {
+    color: #6ee7b7 !important;
+}
+
+#philosophersApp .ph-seat.hungry {
+    background: #42331b !important;
+    border-color: #fbbf24 !important;
+}
+
+#philosophersApp .ph-seat.hungry .ph-state-label {
+    color: #fcd34d !important;
+}
+
+#philosophersApp .ph-fork,
+#philosophersApp .concurrency-process {
+    background: #302945 !important;
+    border: 1px solid #51456f !important;
+    color: #f5f1ff !important;
+}
+
+#philosophersApp .ph-fork.busy,
+#philosophersApp .concurrency-process.hungry {
+    background: #42331b !important;
+    border-color: #fbbf24 !important;
+}
+
+#philosophersApp .ph-fork-detail,
+#philosophersApp .ph-fork .ph-fork-symbol {
+    color: #c5bddb !important;
+}
+
+#philosophersApp .ph-log,
+#philosophersApp .ph-log-entry {
+    background: #171324 !important;
+    color: #e3ddf2 !important;
+}
+
+#philosophersApp .ph-log-entry {
+    border-left: 3px solid #a78bfa !important;
+}
+
+#philosophersApp .ph-log-entry.eating {
+    border-left-color: #34d399 !important;
+}
+
+#philosophersApp .ph-log-entry.hungry {
+    border-left-color: #fbbf24 !important;
+}
+
+
+/* =========================================================
+   FILÓSOFOS COMENSALES: DISEÑO VISUAL Y TEMA OSCURO
+   ========================================================= */
+
+#philosophersApp {
+    --ph-bg: #171425;
+    --ph-card: #211d33;
+    --ph-card-light: #302945;
+    --ph-border: #49405f;
+    --ph-text: #f5f1ff;
+    --ph-muted: #c5bddb;
+    --ph-purple: #a78bfa;
+    --ph-green: #34d399;
+    --ph-yellow: #fbbf24;
+
+    color: var(--ph-text);
+    display: grid;
+    gap: 22px;
+    width: 100%;
+    min-width: 0;
+}
+
+#philosophersApp .concurrency-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+#philosophersApp .barber-eyebrow {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: var(--ph-purple);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+}
+
+#philosophersApp .concurrency-header h2 {
+    margin: 0 0 8px;
+    color: var(--ph-text);
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    font-weight: 800;
+}
+
+#philosophersApp .concurrency-description {
+    margin: 0;
+    color: var(--ph-muted);
+    line-height: 1.7;
+}
+
+#philosophersApp .ph-controls,
+#philosophersApp .ph-panel {
+    min-width: 0;
+    padding: 22px;
+    border: 1px solid var(--ph-border);
+    border-radius: 18px;
+    background: var(--ph-card);
+    color: var(--ph-text);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+}
+
+#philosophersApp .ph-controls {
+    display: flex;
+    align-items: end;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#philosophersApp .ph-controls > div {
+    min-width: 140px;
+}
+
+#philosophersApp .ph-controls label {
+    display: block;
+    margin-bottom: 9px;
+    color: var(--ph-muted);
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+#philosophersApp .ph-controls select {
+    width: 100%;
+    min-height: 42px;
+    padding: 9px 12px;
+    border: 1px solid var(--ph-border);
+    border-radius: 9px;
+    background: var(--ph-card-light);
+    color: var(--ph-text);
+}
+
+#philosophersApp #phSpeed {
+    display: block;
+    width: 180px;
+    max-width: 100%;
+    accent-color: var(--ph-purple);
+}
+
+#philosophersApp #phSpeedValue {
+    display: inline-block;
+    margin-top: 5px;
+    color: var(--ph-muted);
+    font-size: 0.85rem;
+}
+
+#philosophersApp .ph-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+#philosophersApp .ph-buttons button {
+    min-height: 40px;
+    padding: 10px 14px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #7c5cf0, #bd5bd5);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: filter 0.2s, transform 0.2s;
+}
+
+#philosophersApp .ph-buttons button:hover:not(:disabled) {
+    filter: brightness(1.12);
+    transform: translateY(-1px);
+}
+
+#philosophersApp .ph-buttons button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+#philosophersApp #phReset {
+    border-color: #754052;
+    background: #3b2334;
+    color: #ffb4c6;
+}
+
+#philosophersApp .ph-controls > p {
+    margin: 0;
+    color: var(--ph-muted);
+}
+
+#philosophersApp #phStatus {
+    color: var(--ph-purple);
+}
+
+#philosophersApp .ph-statistics {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+#philosophersApp .ph-statistics > div {
+    min-width: 0;
+    padding: 18px;
+    border: 1px solid var(--ph-border);
+    border-top: 4px solid var(--ph-purple);
+    border-radius: 13px;
+    background: var(--ph-card);
+}
+
+#philosophersApp .ph-statistics > div:nth-child(2) {
+    border-top-color: #60a5fa;
+}
+
+#philosophersApp .ph-statistics > div:nth-child(3) {
+    border-top-color: var(--ph-green);
+}
+
+#philosophersApp .ph-statistics > div:nth-child(4) {
+    border-top-color: var(--ph-yellow);
+}
+
+#philosophersApp .ph-statistics span {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--ph-muted);
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+#philosophersApp .ph-statistics strong {
+    color: var(--ph-text);
+    font-size: 1.9rem;
+    font-weight: 800;
+}
+
+#philosophersApp .ph-panel h3 {
+    margin: 0 0 10px;
+    color: var(--ph-text);
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+#philosophersApp .ph-panel > p {
+    margin: 0 0 18px;
+    color: var(--ph-muted);
+    line-height: 1.65;
+}
+
+/* MESA CIRCULAR */
+
+#philosophersApp .ph-table {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    max-width: 820px;
+    height: 590px;
+    margin: 12px auto 0;
+    overflow: hidden;
+    border: 1px solid var(--ph-border);
+    border-radius: 20px;
+    background:
+        radial-gradient(ellipse at center, #302849 0%, #211b32 62%, #171324 100%);
+}
+
+/* Superficie circular de la mesa */
+
+#philosophersApp .ph-table-top {
+    position: absolute;
+    z-index: 0;
+    top: 50%;
+    left: 50%;
+    width: 43%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border: 8px solid #655184;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 35% 30%, #765b9b, #49345f 58%, #322343);
+    box-shadow:
+        0 0 0 9px rgba(167, 139, 250, 0.08),
+        0 14px 35px rgba(0, 0, 0, 0.4),
+        inset 0 3px 18px rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+}
+
+/* Centro de la mesa */
+
+#philosophersApp .ph-table > .ph-center {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 34%;
+    aspect-ratio: 1;
+    padding: 12px;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(221, 214, 254, 0.22);
+    border-radius: 50%;
+    background: #21172f;
+    text-align: center;
+    pointer-events: none;
+}
+
+#philosophersApp .ph-table > .ph-center strong {
+    color: #e9ddff;
+    font-size: clamp(0.65rem, 1.5vw, 0.95rem);
+    font-weight: 900;
+    letter-spacing: 0.04em;
+}
+
+#philosophersApp .ph-table > .ph-center p {
+    margin: 8px 0 0;
+    color: #c5bddb;
+    font-size: 0.76rem;
+    line-height: 1.4;
+}
+
+/* Posición de cada filósofo */
+
+#philosophersApp .ph-seat {
+    position: absolute;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 116px;
+    min-height: 112px;
+    padding: 8px 5px;
+    transform: translate(-50%, -50%);
+    border: 1px solid #51456f;
+    border-radius: 15px;
+    background: #302945;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    transition: border-color 0.2s, background 0.2s;
+}
+
+#philosophersApp .ph-seat.thinking {
+    border-color: #6474a8;
+}
+
+#philosophersApp .ph-seat.eating {
+    border: 2px solid var(--ph-green);
+    background: #153a30;
+    box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.13),
+        0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+#philosophersApp .ph-seat.hungry {
+    border: 2px solid var(--ph-yellow);
+    background: #42331b;
+}
+
+/* Personajes dibujados con CSS */
+
+#philosophersApp .ph-person {
+    position: relative;
+    width: 46px;
+    height: 48px;
+    flex: 0 0 auto;
+}
+
+#philosophersApp .ph-head {
+    position: absolute;
+    z-index: 2;
+    top: 5px;
+    left: 10px;
+    width: 27px;
+    height: 28px;
+    border-radius: 45% 45% 48% 48%;
+    background: var(--skin, #d7a17c);
+    box-shadow: inset -3px -2px 0 rgba(0, 0, 0, 0.1);
+}
+
+#philosophersApp .ph-hair {
+    position: absolute;
+    z-index: 3;
+    top: 2px;
+    left: 9px;
+    width: 29px;
+    height: 13px;
+    border-radius: 14px 14px 5px 5px;
+    background: var(--hair, #49352b);
+}
+
+#philosophersApp .ph-eye {
+    position: absolute;
+    top: 11px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #29202c;
+}
+
+#philosophersApp .ph-eye.left {
+    left: 6px;
+}
+
+#philosophersApp .ph-eye.right {
+    right: 6px;
+}
+
+#philosophersApp .ph-mouth {
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    width: 8px;
+    height: 4px;
+    border-bottom: 2px solid #8c4549;
+    border-radius: 50%;
+}
+
+#philosophersApp .ph-body {
+    position: absolute;
+    bottom: 0;
+    left: 3px;
+    width: 41px;
+    height: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px 14px 5px 5px;
+    background: var(--shirt, #426a9b);
+}
+
+#philosophersApp .ph-seat-name {
+    margin-top: 5px;
+    color: var(--ph-text);
+    font-size: 0.76rem;
+    font-weight: 800;
+    text-align: center;
+    white-space: nowrap;
+}
+
+#philosophersApp .ph-state-label {
+    margin-top: 3px;
+    color: var(--ph-muted);
+    font-size: 0.68rem;
+    text-align: center;
+}
+
+#philosophersApp .ph-seat.eating .ph-state-label {
+    color: #6ee7b7;
+}
+
+#philosophersApp .ph-seat.hungry .ph-state-label {
+    color: #fcd34d;
+}
+
+/* Platos */
+
+#philosophersApp .ph-plate {
+    position: absolute;
+    z-index: 1;
+    width: 37px;
+    height: 37px;
+    transform: translate(-50%, -50%);
+    border: 4px solid #a9a3bd;
+    border-radius: 50%;
+    background: radial-gradient(circle, #eee8fa 0 35%, #d2c9e8 38% 100%);
+    box-shadow: 0 4px 9px rgba(0, 0, 0, 0.35);
+}
+
+#philosophersApp .ph-plate.food-ready {
+    border-color: #6ee7b7;
+    background: radial-gradient(circle, #fcd34d 0 22%, #7dba77 25% 44%, #d2c9e8 47%);
+}
+
+/* Tenedores colocados alrededor de la mesa */
+
+#philosophersApp .ph-table-fork {
+    position: absolute;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 34px;
+    transform: translate(-50%, -50%) rotate(var(--fork-rotation, 0deg));
+    border: 1px solid rgba(196, 181, 253, 0.28);
+    border-radius: 9px;
+    background: #252039;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#philosophersApp .ph-table-fork .fork-head {
+    position: absolute;
+    top: 5px;
+    left: 6px;
+    width: 11px;
+    height: 9px;
+    border: 2px solid #c4b5fd;
+    border-bottom: 0;
+    border-radius: 5px 5px 0 0;
+}
+
+#philosophersApp .ph-table-fork .fork-head::before,
+#philosophersApp .ph-table-fork .fork-head::after {
+    position: absolute;
+    top: -3px;
+    width: 2px;
+    height: 6px;
+    border-radius: 2px;
+    background: #c4b5fd;
+    content: "";
+}
+
+#philosophersApp .ph-table-fork .fork-head::before {
+    left: 1px;
+}
+
+#philosophersApp .ph-table-fork .fork-head::after {
+    right: 1px;
+}
+
+#philosophersApp .ph-table-fork .fork-handle {
+    position: absolute;
+    top: 14px;
+    left: 10px;
+    width: 3px;
+    height: 12px;
+    border-radius: 3px;
+    background: #c4b5fd;
+}
+
+#philosophersApp .ph-table-fork .fork-number {
+    margin-left: 13px;
+    color: #e9ddff;
+    font-size: 0.7rem;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+#philosophersApp .ph-table-fork.busy {
+    border-color: var(--ph-yellow);
+    background: #42331b;
+}
+
+#philosophersApp .ph-table-fork.busy .fork-head,
+#philosophersApp .ph-table-fork.busy .fork-handle {
+    border-color: var(--ph-yellow);
+    background: var(--ph-yellow);
+}
+
+#philosophersApp .ph-table-fork.busy .fork-number {
+    color: #fcd34d;
+}
+
+/* Tarjetas de estado */
+
+#philosophersApp .ph-forks,
+#philosophersApp .ph-actors {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+    gap: 12px;
+}
+
+#philosophersApp .ph-fork,
+#philosophersApp .concurrency-process {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid var(--ph-border);
+    border-radius: 12px;
+    background: var(--ph-card-light);
+    color: var(--ph-text);
+}
+
+#philosophersApp .ph-fork-symbol {
+    display: grid;
+    width: 32px;
+    height: 32px;
+    place-items: center;
+    border-radius: 9px;
+    background: #41345e;
+    color: #d8c8ff;
+    font-weight: 900;
+}
+
+#philosophersApp .ph-fork > strong,
+#philosophersApp .concurrency-process > strong {
+    color: var(--ph-text);
+    font-size: 0.92rem;
+}
+
+#philosophersApp .ph-fork-detail,
+#philosophersApp .concurrency-process > div {
+    color: var(--ph-muted);
+    font-size: 0.83rem;
+    line-height: 1.5;
+}
+
+#philosophersApp .ph-fork.busy,
+#philosophersApp .concurrency-process.eating {
+    border-color: #268a69;
+    background: #17362f;
+}
+
+#philosophersApp .ph-fork.busy .ph-fork-symbol {
+    background: #245b47;
+    color: #6ee7b7;
+}
+
+#philosophersApp .concurrency-process.hungry {
+    border-color: #a67a28;
+    background: #3b301c;
+}
+
+/* Registro de eventos */
+
+#philosophersApp .ph-log {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 310px;
+    overflow-y: auto;
+    scrollbar-color: #51456f transparent;
+}
+
+#philosophersApp .ph-log-entry {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    padding: 12px;
+    border-left: 3px solid var(--ph-purple);
+    border-radius: 0 8px 8px 0;
+    background: #171324;
+    color: #e3ddf2;
+    font-size: 0.84rem;
+    line-height: 1.55;
+}
+
+#philosophersApp .ph-log-entry strong {
+    flex-shrink: 0;
+    color: var(--ph-purple);
+}
+
+#philosophersApp .ph-log-entry.eating {
+    border-left-color: var(--ph-green);
+}
+
+#philosophersApp .ph-log-entry.eating strong {
+    color: var(--ph-green);
+}
+
+#philosophersApp .ph-log-entry.hungry {
+    border-left-color: var(--ph-yellow);
+}
+
+#philosophersApp .ph-log-entry.hungry strong {
+    color: var(--ph-yellow);
+}
+
+/* Diseño adaptable */
+
+@media (max-width: 700px) {
+    #philosophersApp .ph-controls,
+    #philosophersApp .ph-panel {
+        padding: 15px;
+    }
+
+    #philosophersApp .ph-statistics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #philosophersApp .ph-controls {
+        align-items: stretch;
+    }
+
+    #philosophersApp .ph-controls > div {
+        width: 100%;
+    }
+
+    #philosophersApp .ph-buttons button {
+        flex: 1 1 42%;
+    }
+
+    #philosophersApp .ph-table {
+        height: 490px;
+    }
+
+    #philosophersApp .ph-table-top {
+        width: 48%;
+    }
+
+    #philosophersApp .ph-table > .ph-center {
+        width: 37%;
+    }
+
+    #philosophersApp .ph-seat {
+        width: 92px;
+        min-height: 94px;
+        padding: 5px 2px;
+    }
+
+    #philosophersApp .ph-person {
+        transform: scale(0.82);
+        transform-origin: center bottom;
+        margin-bottom: -5px;
+    }
+
+    #philosophersApp .ph-seat-name {
+        font-size: 0.67rem;
+    }
+
+    #philosophersApp .ph-state-label {
+        font-size: 0.61rem;
+    }
+
+    #philosophersApp .ph-plate {
+        width: 28px;
+        height: 28px;
+        border-width: 3px;
+    }
+
+    #philosophersApp .ph-table-fork {
+        transform: translate(-50%, -50%) rotate(var(--fork-rotation, 0deg)) scale(0.82);
+    }
+}
+
+@media (max-width: 400px) {
+    #philosophersApp .ph-table {
+        height: 430px;
+    }
+
+    #philosophersApp .ph-seat {
+        width: 78px;
+        min-height: 84px;
+    }
+
+    #philosophersApp .ph-table > .ph-center strong {
+        font-size: 0.57rem;
+    }
+
+    #philosophersApp .ph-table > .ph-center p {
+        font-size: 0.62rem;
+    }
+}
